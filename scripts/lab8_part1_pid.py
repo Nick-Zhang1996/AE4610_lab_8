@@ -50,7 +50,8 @@ sequence = [
     # make sure the x,y coordinate of the first waypoint is 0,0
     (0, 0, 0.4, 0),
     (0.5, 0, 0.4, 0),
-    (0.5, 0, 0.1, 0),
+    (0.5, 0.5, 0.4, 0),
+    (0.5, 0.5, 0.1, 0),
 ]
 
 
@@ -103,6 +104,7 @@ def reset_estimator(scf):
 
     wait_for_position_estimator(cf)
 
+# set PID gains
 def set_gains(scf):
     # Default gain
     # posCtlPid.xKp: 2.0
