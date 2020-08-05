@@ -103,6 +103,34 @@ def reset_estimator(scf):
 
     wait_for_position_estimator(cf)
 
+def set_gains(scf):
+    # Default gain
+    # posCtlPid.xKp: 2.0
+    # posCtlPid.xKi: 0.0
+    # posCtlPid.xKd: 0.0
+    # posCtlPid.yKp: 2.0
+    # posCtlPid.yKi: 0.0
+    # posCtlPid.yKd: 0.0
+    # posCtlPid.zKp: 2.0
+    # posCtlPid.zKi: 0.5
+    # posCtlPid.zKd: 0.0
+
+    # Modify Position Gains
+    scf.cf.param.set_value('posCtlPid.xKp', 2.0)
+    scf.cf.param.set_value('posCtlPid.xKd', 0.5)
+    scf.cf.param.set_value('posCtlPid.yKp', 2.0)
+    scf.cf.param.set_value('posCtlPid.yKd', 0.5)
+    scf.cf.param.set_value('posCtlPid.zKp', 2.0)
+    scf.cf.param.set_value('posCtlPid.zKd', 0.5)
+
+    # Modify Velocity Gains
+    scf.cf.param.set_value('velCtlPid.vxKp', 10.0)
+    scf.cf.param.set_value('velCtlPid.vxKi', 1.0)
+    scf.cf.param.set_value('velCtlPid.vyKp', 10.0)
+    scf.cf.param.set_value('velCtlPid.vyKi', 1.0)
+    scf.cf.param.set_value('velCtlPid.vzKp', 15.0)
+    scf.cf.param.set_value('velCtlPid.vzKi', 15.0)
+
 
 log_vec = []
 target = (0,0,0)
@@ -168,6 +196,7 @@ if __name__ == '__main__':
 
     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
         reset_estimator(scf)
+        set_gains(scf)
         start_position_logging(scf)
         run_sequence(scf, sequence)
     np.save('lab8_log',log_vec)
